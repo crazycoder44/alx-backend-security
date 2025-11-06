@@ -5,3 +5,5 @@ django-ratelimit==4.1.0
 django-redis==5.4.0
 requests==2.31.0
 python-dotenv==1.0.0
+celery==5.3.6
+django-celery-beat==2.5.0

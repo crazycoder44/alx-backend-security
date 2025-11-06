@@ -1,5 +1,22 @@
 from django.db import models
 
+class SuspiciousIP(models.Model):
+    """Model to store suspicious IP addresses with reasons for flagging"""
+    ip_address = models.GenericIPAddressField()
+    first_detected = models.DateTimeField(auto_now_add=True)
+    last_detected = models.DateTimeField(auto_now=True)
+    request_count = models.IntegerField(default=0)
+    reason = models.CharField(max_length=255)
+    is_blocked = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Suspicious IP"
+        verbose_name_plural = "Suspicious IPs"
+
+    def __str__(self):
+        return f"{self.ip_address} - {self.reason} ({self.request_count} requests)"
+
+
 class RequestLog(models.Model):
     """Model to log request details with geolocation data"""
     ip_address = models.GenericIPAddressField()
