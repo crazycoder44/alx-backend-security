@@ -39,7 +39,25 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ip_tracking',  # Add our ip_tracking app
     'django_ip_geolocation',  # Add django-ip-geolocation app
+    'django_ratelimit',  # Add django-ratelimit app
 ]
+
+# Rate limiting settings
+RATELIMIT_USE_CACHE = 'default'
+RATELIMIT_ENABLE = True
+# Block requests when rate limit is exceeded (returns 403)
+RATELIMIT_FAIL_OPEN = False
+
+# Cache configuration
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
